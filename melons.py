@@ -1,5 +1,4 @@
 """Classes for melon orders."""
-
 class AbstractMelonOrder:
     order_type = None
     tax = 0
@@ -51,3 +50,17 @@ class InternationalMelonOrder(AbstractMelonOrder):
         """Return the country code."""
 
         return self.country_code
+
+class GovernmentMelonOrder(AbstractMelonOrder):
+    tax = 0.00
+    order_type = "government"
+
+    def __init__(self, species, qty):
+        super().__init__(species, qty)
+        self.passed_inspection = False
+
+    def mark_inspection(self, passed):
+        if passed == "passed":
+
+            self.passed_inspection = True
+ 
