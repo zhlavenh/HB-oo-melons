@@ -1,4 +1,6 @@
 """Classes for melon orders."""
+import random
+import datetime
 class AbstractMelonOrder:
     order_type = None
     tax = 0
@@ -8,9 +10,21 @@ class AbstractMelonOrder:
         self.qty = qty
         self.shipped = False
 
+    def get_base_price(self):
+        base_price = random.randint(5,9)
+
+        time = datetime.datetime.now()
+        day = time.weekday()
+        hour_of_day = time.hour
+
+        if day <= 4 and hour_of_day >= 8 and hour_of_day <= 11:
+            base_price += 4
+
+        return base_price
+
     def get_total(self):
         """Calculate price, including tax."""
-        base_price = 5
+        base_price = self.get_base_price()
         if self.species == "christmas melon":
             base_price *= 1.5
             
